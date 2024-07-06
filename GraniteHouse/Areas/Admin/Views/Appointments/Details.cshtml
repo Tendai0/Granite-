@@ -1,0 +1,111 @@
+﻿@model GraniteHouse.Models.ViewModel.AppointmentDetailsViewModel
+@using GraniteHouse.Extensions
+@using GraniteHouse.Utility
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2 class="text-info">Appointment Details</h2>
+
+    <div class="p-4 border rounded row">
+    
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerName" disabled class="form-control" />
+                </div>
+             
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerEmail"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerEmail" disabled class="form-control" />
+                </div>
+               
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.AppointmentDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.AppointmentDate" type="text" disabled class="form-control" />
+                </div>
+             
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.AppointmentTime"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.AppointmentTime" disabled class="form-control" />
+                </div>
+             
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerPhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerPhoneNumber" disabled class="form-control" />
+                </div>
+            
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.SalesPerson"></label>
+                </div>
+                <div class="col-8">
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        <input asp-for="@Model.Appointments.SalesPerson.Name" disabled class="form-control" />
+                        <input asp-for="@Model.Appointments.SalesPersonId" hidden />
+
+                    }
+                    else
+                    {
+                        <select asp-for="@Model.Appointments.SalesPersonId" disabled asp-items="@Model.SalesPerson.ToSelectListItemString(Model.Appointments.SalesPersonId)" class="form-control"></select>
+
+                    }
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.isConfirmed"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.isConfirmed" disabled class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6">
+            @*Partial view*@
+            <partial name="~/Views/Shared/_AppointmentProductDetails.cshtml" model="Model.Products" />
+        </div>
+
+        <br />
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-success">Back to list</a>
+        </div>
+    </div>
+
+
+
+
+

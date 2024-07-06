@@ -1,0 +1,119 @@
+﻿@model GraniteHouse.Models.ViewModel.AppointmentDetailsViewModel
+@using GraniteHouse.Extensions
+@using GraniteHouse.Utility
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2 class="text-info">Delete Appointment</h2>
+<form method="Post">
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="Appointments.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerName" readonly class="form-control" />
+                </div>
+                        </div>
+
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerEmail"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerEmail" readonly class="form-control" />
+                </div>
+        
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.AppointmentDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.AppointmentDate" readonly type="text" class="form-control datepicker" />
+                </div>
+              
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.AppointmentTime"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.AppointmentTime"readonly class="form-control" />
+                </div>
+            
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.CustomerPhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.CustomerPhoneNumber" readonly class="form-control" />
+                </div>
+             
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.SalesPerson"></label>
+                </div>
+                <div class="col-8">
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        <input asp-for="@Model.Appointments.SalesPerson.Name" readonly class="form-control" />
+                        <input asp-for="@Model.Appointments.SalesPersonId" hidden />
+
+                    }
+                    else
+                    {
+                        <select asp-for="@Model.Appointments.SalesPersonId" disabled asp-items="@Model.SalesPerson.ToSelectListItemString(Model.Appointments.SalesPersonId)" class="form-control"></select>
+
+                    }
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-4">
+                    <label asp-for="Appointments.isConfirmed"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Appointments.isConfirmed" readonly class="form-control" />
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6">
+            @*Partial view*@
+            <partial name="~/Views/Shared/_AppointmentProductDetails.cshtml" model="Model.Products" />
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" asp-route-id="@Model.Appointments.Id" value="Delete" />
+            <a asp-action="Index" class="btn btn-success">Back to list</a>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script>
+        $(".datepicker").datetimepicker();
+                          //  $(".timepicker").datetimepicker();
+
+    </script>
+
+}
+
+
+
+
